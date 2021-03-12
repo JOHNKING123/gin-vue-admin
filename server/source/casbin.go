@@ -1,4 +1,4 @@
-package information
+package source
 
 import (
 	"gin-vue-admin/global"
@@ -55,6 +55,7 @@ var carbines = []gormadapter.CasbinRule{
 	{PType: "p", V0: "888", V1: "/customer/customer", V2: "GET"},
 	{PType: "p", V0: "888", V1: "/customer/customerList", V2: "GET"},
 	{PType: "p", V0: "888", V1: "/autoCode/createTemp", V2: "POST"},
+	{PType: "p", V0: "888", V1: "/autoCode/preview", V2: "POST"},
 	{PType: "p", V0: "888", V1: "/autoCode/getTables", V2: "GET"},
 	{PType: "p", V0: "888", V1: "/autoCode/getDB", V2: "GET"},
 	{PType: "p", V0: "888", V1: "/autoCode/getColumn", V2: "GET"},
@@ -91,6 +92,10 @@ var carbines = []gormadapter.CasbinRule{
 	{PType: "p", V0: "888", V1: "/workflowProcess/getMyStated", V2: "GET"},
 	{PType: "p", V0: "888", V1: "/workflowProcess/getMyNeed", V2: "GET"},
 	{PType: "p", V0: "888", V1: "/workflowProcess/getWorkflowMoveByID", V2: "GET"},
+	{PType: "p", V0: "888", V1: "/excel/importExcel", V2: "POST"},
+	{PType: "p", V0: "888", V1: "/excel/loadExcel", V2: "GET"},
+	{PType: "p", V0: "888", V1: "/excel/exportExcel", V2: "POST"},
+	{PType: "p", V0: "888", V1: "/excel/downloadTemplate", V2: "GET"},
 	{PType: "p", V0: "8881", V1: "/base/login", V2: "POST"},
 	{PType: "p", V0: "8881", V1: "/user/register", V2: "POST"},
 	{PType: "p", V0: "8881", V1: "/api/createApi", V2: "POST"},
@@ -171,6 +176,7 @@ var carbines = []gormadapter.CasbinRule{
 //@author: [SliverHorn](https://github.com/SliverHorn)
 //@description: casbin_rule 表数据初始化
 func (c *casbin) Init() error {
+	global.GVA_DB.AutoMigrate(gormadapter.CasbinRule{})
 	return global.GVA_DB.Transaction(func(tx *gorm.DB) error {
 		if tx.Find(&[]gormadapter.CasbinRule{}).RowsAffected == 154 {
 			color.Danger.Println("\n[Mysql] --> casbin_rule 表的初始数据已存在!")
